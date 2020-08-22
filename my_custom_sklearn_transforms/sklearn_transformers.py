@@ -39,7 +39,7 @@ class PrepareData(BaseEstimator, TransformerMixin):
         d = data.copy()
         atividades = list()
         soma_medias = data.H_AULA_PRES.median() + data.TAREFAS_ONLINE.median()
-        for i in range(0, len(data.NOME)):
+        for i in range(0, len(data["NOME"])):
             v = (data.at[i, "H_AULA_PRES"] + data.at[i, "TAREFAS_ONLINE"]) / soma_medias
             atividades.append(v)
 
