@@ -5,6 +5,7 @@ from keras.layers import LeakyReLU
 from sklearn import preprocessing
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class PrepareData(BaseEstimator, TransformerMixin):
@@ -51,14 +52,16 @@ class PrepareData(BaseEstimator, TransformerMixin):
 #a classe que cria o modelo tem que ser um estimator... Não sei se precisa ser TranformerMixin também, maaasss
 class CreateModel(BaseEstimator, TransformerMixin):
 
-    def __init__(self,input_s=9, batch_size=900, epochs=2500):
+    def __init__(self,X,Y, input_s=9, batch_size=900, epochs=2500):
         self.epochs = epochs
         self.batch_size = batch_size
         self.input_s = input_s
+        self.X = X
+        self.Y = Y
         pass
 
     def fit(self, x_bruto, y_bruto):
-        x_prepared, y_prepared = self.prepare_input_output_transformer(x_bruto, y_bruto)
+        x_prepared, y_prepared = self.prepare_input_output_transformer(self.X, self.Y)
         X_train, X_val, self.X_test, Y_train,Y_val, self.Y_test = self.split_data_he_he(x_prepared, y_prepared)
 
         model = self.create()
