@@ -15,9 +15,10 @@ class CreateModel(BaseEstimator, TransformerMixin):
 
         pass
 
-    def put_X_Y(self,X,Y):
-        self.X = X
-        self.Y = Y
+    def put_X_Y(self,X,Y,test_size):
+        self.X=X
+        self.Y=Y
+        self.test_size=test_size
         return self
 
     def fit(self, x_bruto, y_bruto):
@@ -64,7 +65,7 @@ class CreateModel(BaseEstimator, TransformerMixin):
         return x_prepared, y_prepared
 
     def split_data_he_he(self, x_prepared, y_prepared):
-        X_train, X_val_test, Y_train, y_val_test = train_test_split(x_prepared, y_prepared, test_size=0.3,
+        X_train, X_val_test, Y_train, y_val_test = train_test_split(x_prepared, y_prepared, test_size=self.test_size,
                                                                     random_state=337)
         X_val, X_test, Y_val, Y_test = train_test_split(X_val_test, y_val_test, test_size=0.5) #avali
 
