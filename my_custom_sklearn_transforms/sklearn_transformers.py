@@ -20,10 +20,10 @@ class PrepareData(BaseEstimator, TransformerMixin):
         data = X.copy()
         # Retornamos um novo dataframe sem as colunas indesejadas
         data = self.nota_proporcional(data)
-        self.horas_atividades(data)
+        data = self.horas_atividades(data)
         return data.drop(labels=self.drop_colums, axis='columns')
 
-    ### Saber se o aluno tira 7 onde a média é 5 ou se ele tira 3 onde a média é 7...
+    ### Divide a nota de cada aluno pela média nas matérias
     def nota_proporcional(self, data):
         d = data.copy()
 
