@@ -1,7 +1,6 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.layers import LeakyReLU
 from sklearn import preprocessing
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
@@ -37,10 +36,10 @@ class CreateModel(BaseEstimator, TransformerMixin):
     def create(self):
         model = Sequential()
         model.add(Dense(18,
-                        activation=LeakyReLU(alpha=0.1),
+                        activation='relu',
                         input_shape=(self.input_s,)))
         model.add(Dense(36,
-                        activation=LeakyReLU(alpha=0.1)))
+                        activation='relu'))
         model.add(Dense(5,
                         activation='softmax'))
 
