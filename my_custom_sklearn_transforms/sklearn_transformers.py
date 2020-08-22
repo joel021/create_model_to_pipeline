@@ -23,7 +23,7 @@ class PrepareData(BaseEstimator, TransformerMixin):
         self.horas_atividades(data)
         return data.drop(labels=self.drop_colums, axis='columns')
 
-    ### Saber se o aluno tira 7 onde a média é 5 ou se ele tira 3 onde a média é 7...
+
     def nota_proporcional(self, data):
         d = data.copy()
 
