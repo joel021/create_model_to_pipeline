@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
       name='my_custom_sklearn_transforms_with_keras',
-      version='1.0',
+      version='1.1',
       description='''
             This is a sample python package for encapsulating custom
             tranforms from scikit-learn into Watson Machine Learning

@@ -8,8 +8,9 @@ from sklearn.model_selection import train_test_split
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class PrepareData(BaseEstimator, TransformerMixin):
-    def __init__(self, columns):
-        self.columns = columns
+
+    def __init__(self, drop_colums):
+        self.drop_colums = drop_colums
 
     def fit(self, X, y=None):
         return self
@@ -18,12 +19,12 @@ class PrepareData(BaseEstimator, TransformerMixin):
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
         # Retornamos um novo dataframe sem as colunas indesejadas
-        data = data.drop(labels=self.columns, axis='columns')
-        data = self.notaProporcional(data)
-        return self.horasAtividades(data)
+        data = self.nota_proporcional(data)
+        self.horas_atividades(data)
+        return data.drop(labels=self.drop_colums, axis='columns')
 
     ### Saber se o aluno tira 7 onde a média é 5 ou se ele tira 3 onde a média é 7...
-    def notaProporcional(self, data):
+    def nota_proporcional(self, data):
         d = data.copy()
 
         for coluna in ["NOTA_DE", "NOTA_MF", "NOTA_GO", "NOTA_EM"]:
@@ -34,7 +35,7 @@ class PrepareData(BaseEstimator, TransformerMixin):
         return d
 
     ### calcular a quantidade total de horas de atividades e sua proporcionalidade
-    def horasAtividades(self, data):
+    def horas_atividades(self, data):
         d = data.copy()
         atividades = list()
         soma_medias = data.H_AULA_PRES.median() + data.TAREFAS_ONLINE.median()
@@ -50,14 +51,15 @@ class PrepareData(BaseEstimator, TransformerMixin):
 #a classe que cria o modelo tem que ser um estimator... Não sei se precisa ser TranformerMixin também, maaasss
 class CreateModel(BaseEstimator, TransformerMixin):
 
-    def __init__(self,input=9, batch_size=900, epochs=2500):
+    def __init__(self,input_s=9, batch_size=900, epochs=2500):
         self.epochs = epochs
         self.batch_size = batch_size
-        self.input = input
+        self.input_s = input_s
         pass
 
     def fit(self, x_bruto, y_bruto):
-        X_train, X_val, X_test, Y_train,Y_val, Y_test =self.split_data_he_he(self.prepare_input_output_transformer(x_bruto, y_bruto))
+        x_prepared, y_prepared = self.prepare_input_output_transformer(x_bruto, y_bruto)
+        X_train, X_val, self.X_test, Y_train,Y_val, self.Y_test = self.split_data_he_he(x_prepared, y_prepared)
 
         model = self.create()
         self.history = model.fit(X_train, Y_train,
@@ -67,12 +69,15 @@ class CreateModel(BaseEstimator, TransformerMixin):
                             )
         return self
 
+    def get_X_Y_test(self):
+        return self.X_test, self.Y_test
+
     def create(self):
         model = Sequential()
 
         model.add(Dense(18,
                         activation=LeakyReLU(alpha=0.1),
-                        input_shape=(self.input,)))
+                        input_shape=(self.input_s,)))
         model.add(Dense(36,
                         activation=LeakyReLU(alpha=0.1)))
 
