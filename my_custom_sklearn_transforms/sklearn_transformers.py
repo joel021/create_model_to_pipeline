@@ -52,13 +52,17 @@ class PrepareData(BaseEstimator, TransformerMixin):
 #a classe que cria o modelo tem que ser um estimator... Não sei se precisa ser TranformerMixin também, maaasss
 class CreateModel(BaseEstimator, TransformerMixin):
 
-    def __init__(self,X,Y, input_s=9, batch_size=900, epochs=2500):
+    def __init__(self,input_s, batch_size, epochs):
         self.epochs = epochs
         self.batch_size = batch_size
         self.input_s = input_s
+
+        pass
+
+    def put_X_Y(self,X,Y):
         self.X = X
         self.Y = Y
-        pass
+        return self
 
     def fit(self, x_bruto, y_bruto):
         x_prepared, y_prepared = self.prepare_input_output_transformer(self.X, self.Y)
