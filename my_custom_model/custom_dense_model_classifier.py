@@ -13,8 +13,6 @@ class CreateModel(BaseEstimator, TransformerMixin):
         self.batch_size = batch_size
         self.input_s = input_s
 
-        pass
-
     def put_X_Y(self,X,Y,test_size):
         self.X=X
         self.Y=Y
@@ -73,3 +71,12 @@ class CreateModel(BaseEstimator, TransformerMixin):
 
     def predict(self,X):
         return self.model.predict(X)
+
+    def evaluate(self,X_test,Y_test):
+        return self.model.evaluate(X_test,Y_test)
+
+    def get_dense_model(self):
+        return self.model
+
+    def get_history(self):
+        return self.history
