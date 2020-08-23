@@ -28,15 +28,9 @@ class PrepareData(BaseEstimator, TransformerMixin):
         return d
 
     def merge_two_comlumns(self, data):
-
-        d = pd.DataFrame(data)
+        d = data.copy()
         new_column = list()
-        column1 = data[self.merge_comlumns_to_name[0]] #merge
-        column2 = data[self.merge_comlumns_to_name[1]] #merge
-        column1 = column1.median()
-        column2 = column2.median()
-        sum_median = column1 + column2
-        column1 = column2 = None
+        sum_median = data[self.merge_comlumns_to_name[0]].median() + data[self.merge_comlumns_to_name[1]].median()
 
         numpy_column1 = np.array(data[self.merge_comlumns_to_name[0]])
         numpy_column2 = np.array(data[self.merge_comlumns_to_name[1]])
