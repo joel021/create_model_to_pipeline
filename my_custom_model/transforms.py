@@ -29,7 +29,7 @@ class PrepareData(BaseEstimator, TransformerMixin):
 
     def merge_two_comlumns(self, data):
 
-        d = data.copy()
+        d = pd.DataFrame(data)
         new_column = list()
         column1 = data[self.merge_comlumns_to_name[0]] #merge
         column2 = data[self.merge_comlumns_to_name[1]] #merge
