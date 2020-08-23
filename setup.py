@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(
-      name='create_model_to_pipeline',
+      name='dense_model_to_pipeline',
       version='1.0',
       description='''
             This is a sample python package for encapsulating custom
