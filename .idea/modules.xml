@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sklearn_transforms.iml" filepath="$PROJECT_DIR$/.idea/sklearn_transforms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/projeto-d2-maratona-ibm.iml" filepath="$PROJECT_DIR$/.idea/projeto-d2-maratona-ibm.iml" />
     </modules>
   </component>
 </project>
