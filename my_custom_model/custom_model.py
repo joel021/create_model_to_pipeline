@@ -166,11 +166,11 @@ class DenseModel(BaseEstimator, TransformerMixin):
     def create(self):
         model = Sequential()
 
-        model.add(Dense(2 * self.input_s,
+        model.add(Dense(4 * self.input_s,
                         activation=self.activation,
                         input_shape=(self.input_s,)))
 
-        model.add(Dense(2 * self.input_s,
+        model.add(Dense(4 * self.input_s,
                         activation=self.activation))
 
         model.add(Dense(self.num_classes,
