@@ -9,6 +9,8 @@ import math
 from sklearn.impute import SimpleImputer
 from keras.utils import to_categorical
 
+
+
 class MegeTwoColumns(BaseEstimator, TransformerMixin):
 
     def __init__(self ,columns ,name):
@@ -130,15 +132,6 @@ class FeaturesDificuldade(BaseEstimator, TransformerMixin):
         data["P_DIFICULDADE"] = p_dificuldade
         return data
 
-
-from sklearn.base import BaseEstimator, TransformerMixin
-from keras.models import Sequential
-from keras.layers import Dense
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
-from keras.utils import to_categorical
-
-
 class DenseModel(BaseEstimator, TransformerMixin):
 
     def __init__(self, input_s, num_classes, batch_size, epochs, activation):
@@ -155,7 +148,7 @@ class DenseModel(BaseEstimator, TransformerMixin):
     def transform(self, X):
         # separa os dados de treinamento dos de validação
         # codifica Y para categorias e codifica as categorias para vetores do tipo : [1,0,0,0,0] = classe 1, ...
-        X_train, X_val_test, Y_train, Y_val_test = train_test_split(X, to_categorical(self.label_encoder(Y),
+        X_train, X_val_test, Y_train, Y_val_test = train_test_split(X, to_categorical(self.label_encoder(self.Y),
                                                                                       self.num_classes), test_size=0.4,
                                                                     random_state=337)  # 40% para validação e teste
         X_test, X_val, Y_test, Y_val = train_test_split(X_val_test, Y_val_test, test_size=0.5,
