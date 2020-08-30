@@ -6,6 +6,6 @@ my_pipeline = Pipeline([
         ('merge_two_columns1',MegeTwoColumns(["NOTA_MF","NOTA_GO"],"M_E")),
         ('merge_two_columns2',MegeTwoColumns(["NOTA_DE","NOTA_EM"],"M_H")),
         ('feture_dificuldade',FeaturesDificuldade()),
-        ('feature_dense',DenseModel(9,5,100,1000,"relu"))
+        ('feature_dense',DenseModel(9,5,100,1000,"relu")),
         ('gxboost_classifier',xgb.XGBClassifier(max_depth=6))
     ])
