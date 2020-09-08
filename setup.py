@@ -13,7 +13,7 @@ setup(
       author_email='vnderlev@protonmail.ch',
       license='BSD',
       packages=[
-            'my_custom_model'
+            'transforms_package'
       ],
       zip_safe=False
 )
